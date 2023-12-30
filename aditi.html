@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romantic Questions</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #9c5d96, #feb47b);
+        }
+
+        #question-container {
+            text-align: center;
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        #gif{
+            padding: 40px;
+        }
+
+        #no-button {
+            width: 70px;
+            height: 40px;
+        }
+        
+        #yes-button {
+            width: 70px;
+            height: 40px;
+        }
+
+        .heart-icon {
+            display: none;
+            font-size: 5em;
+            color: #e63946;
+            position: absolute;
+            animation: floatHeart 2s ease-out;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-50px);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="question-container">
+        <i id="romantic-question" style="color: red;">Will you be my forever love?</i>
+        <br><br>
+        <button id="yes-button" onclick="answerQuestion('yes')">Yes</button>
+        <button id="no-button" onmouseover="answerQuestion('no')">No</button>
+        <iframe id="gif" src="https://giphy.com/embed/11k3oaUjSlFR4I" width="280" height="174" frameBorder="0" class="giphy-embed" allowFullScreen hidden></iframe>
+    </div>
+
+    <div id="heart-icon" class="heart-icon">❤️</div>
+
+    <script>
+        function answerQuestion(response) {
+            if (response === 'no') {
+                const noButton = document.getElementById('no-button');
+                const boundarySize = 100; // Size of the square boundary
+                const maxX = window.innerWidth - boundarySize;
+                const maxY = window.innerHeight - boundarySize;
+
+                const randomX = Math.max(0, Math.min(maxX, Math.floor(Math.random() * window.innerWidth)));
+                const randomY = Math.max(0, Math.min(maxY, Math.floor(Math.random() * window.innerHeight)));
+
+                noButton.style.position = 'absolute';
+                noButton.style.left = randomX + 'px';
+                noButton.style.top = randomY + 'px';
+            } else if (response === 'yes') {
+                const heartIcon = document.getElementById('heart-icon');
+                heartIcon.style.display = 'inline';
+                setTimeout(function () {
+                    heartIcon.style.display = 'none';
+                    $('#gif').show();
+                }, 1000);                
+            }
+        }
+    </script>
+</body>
+</html>
